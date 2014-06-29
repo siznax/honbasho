@@ -12,9 +12,7 @@ honbasho - crawl grand sumo highlights
     $ mkindex.py data.json "Natsu 2014" honbasho-2014-natsu $BASHO > index.html
 
 
-see also:
-
-    <https://archive.org/details/honbasho-2014-natsu>
+see, for example: <https://archive.org/details/honbasho-2014-natsu>
 
 
 @siznax
