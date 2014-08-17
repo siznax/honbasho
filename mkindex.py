@@ -13,17 +13,10 @@ import datetime
 from string import Template
 
 CSS = """
-.movie {
-  margin:32px;
-  margin-bottom:64px;
-  height:240px;
+.movie p {
   font-size:x-large;
 }
 .movie video {
-  float:left;
-  margin-right:32px;
-  width:427px;
-  height:240px;
   background:#ccc;
 }
 """
@@ -41,9 +34,10 @@ ${video}
 ${text}
 </div>
 """)
-TAIL = Template("""<p>${date} <a href="${url}">${url}</a></p>""")
+TAIL = Template("""<br clear="both">
+<p>${date} <a href="${url}">${url}</a></p>""")
 TEXT_TEMPLATE = Template("""
-<b>${bold}</b>: ${text}
+<p><b>${bold}</b>: ${text}</p>
 """)
 VIDEO_TEMPLATE = Template("""<video controls preload="none">
   <source src="${mp4}" type="video/mp4">
@@ -57,7 +51,7 @@ def print_divs(item, archive):
   ogg = mp4.replace('.mp4', '.ogg')
   mp4_url = "%s/%s/%s" % (DOWNLOAD, archive, mp4)
   ogg_url = "%s/%s/%s" % (DOWNLOAD, archive, ogg)
-  bold = os.path.splitext(mp4)[0].title().replace('_', ' ')
+  bold = os.path.splitext(mp4)[0].split('_')[-1]
   video = VIDEO_TEMPLATE.substitute(mp4=mp4_url, ogg=ogg_url)
   text = TEXT_TEMPLATE.substitute(bold=bold, text=item['txt'])
   print MOVIE_DIV.substitute(video=video, text=text)
