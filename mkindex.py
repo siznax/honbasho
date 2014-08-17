@@ -13,11 +13,19 @@ import datetime
 from string import Template
 
 CSS = """
+.movie {
+  clear:both;
+}
 .movie p {
   font-size:x-large;
 }
 .movie video {
+  float:left;
+  height:240px;
+  width:427px;
   background:#ccc;
+  margin-right:1em;
+  margin-bottom:2em;
 }
 """
 DOWNLOAD = 'https://archive.org/download'
