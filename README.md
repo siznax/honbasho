@@ -16,7 +16,7 @@ honbasho - crawl grand sumo highlights
 
 Archived highlights
 
- * [Nagoya 2014 (July)](https://archive.org/download/honbasho-2014-natsu) [[archive](https://archive.org/details/honbasho-2014-nagoya)]
+ * [Nagoya 2014 (July)](https://archive.org/download/honbasho-2014-nagoya) [[archive](https://archive.org/details/honbasho-2014-nagoya)]
  * [Natsu 2014 (May)](https://archive.org/download/honbasho-2014-natsu) [[archive](https://archive.org/details/honbasho-2014-natsu)]
 
 
