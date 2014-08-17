@@ -11,11 +11,13 @@ honbasho - crawl grand sumo highlights
     # make HTML index
     $ mkindex.py data.json "Natsu 2014" honbasho-2014-natsu $BASHO > index.html
 
+    # upload to Internet Archive
 
-see, for example:
 
-> <https://archive.org/download/honbasho-2014-natsu>     
-> <https://archive.org/details/honbasho-2014-natsu>
+Archived highlights
+
+ * [Nagoya 2014 (Jul)](https://archive.org/download/honbasho-2014-natsu) [[archive](https://archive.org/details/honbasho-2014-nagoya)]
+ * [Natsu 2014 (May)](https://archive.org/download/honbasho-2014-natsu) [[archive](https://archive.org/details/honbasho-2014-natsu)]
 
 
 @siznax
