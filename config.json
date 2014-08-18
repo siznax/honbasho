@@ -3,15 +3,13 @@
 	"source": "http://www.sumo.or.jp/en/honbasho/topics/ko_torikumi15/list",
 	"date": "17 August 2014",
 	"title": "Nagoya 2014 (July) sumo highlights",
-	"archive": "honbasho-2014-nagoya",
-	"details": "https://archive.org/details/honbasho-2014-nagoya"
+	"archive": "honbasho-2014-nagoya"
     },
     "201405": {
 	"source": "http://www.sumo.or.jp/en/honbasho/topics/ko_torikumi15/list",
 	"date": "28 June 2014",
 	"title": "Natsu 2014 (May) sumo highlights",
-	"archive": "honbasho-2014-natsu",
-	"details": "https://archive.org/details/honbasho-2014-natsu"
+	"archive": "honbasho-2014-natsu"
 	},
     "code": "https://github.com/siznax/honbasho"
 }
