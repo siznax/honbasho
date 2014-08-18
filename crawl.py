@@ -71,13 +71,14 @@ def main(args):
     ...
   ]
   """
-  basho = CrawlBasho(args.url)
-  # print vars(basho)
-  basho.crawl()
-  print_json(basho.data)
-
+  with open("config.json") as fp:
+    config = json.loads(fp.read())
+    basho = CrawlBasho(config[args.selector]["source"])
+    # print vars(basho)
+    basho.crawl()
+    print_json(basho.data)
 
 if __name__ == "__main__":
     argp = argparse.ArgumentParser()
-    argp.add_argument('url', help='honbasho highlights URL')
+    argp.add_argument('selector', help='config.json selector')
     main(argp.parse_args())

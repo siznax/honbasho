@@ -43,7 +43,13 @@ ${text}
 </div>
 """)
 TAIL = Template("""<br clear="both">
-<p>${date} <a href="${url}">${url}</a></p>""")
+<p>
+Source: <a href="${source}">${source}</a><br>
+Code: <a href="${code}">${code}</a><br>
+Archive: <a href="https://archive.org/details/${archive}">${archive}</a><br>
+Date: ${date}<br>
+</p>""")
+
 TEXT_TEMPLATE = Template("""
 <p><b>${bold}</b>: ${text}</p>
 """)
@@ -66,25 +72,32 @@ def print_divs(item, archive):
 
 
 def main(args):
-  if not os.path.exists(args.data_file):
-    print "data_file not found: " + args.data_file
+
+  if not os.path.exists(args["data_file"]):
+    print "data_file not found: " + args["data_file"]
     sys.exit(os.EX_USAGE)
 
-  print HTML_TEMPLATE.substitute(title=args.title, css=CSS)
+  print HTML_TEMPLATE.substitute(title=args["title"], css=CSS)
 
-  data = json.load(open(args.data_file))
+  data = json.load(open(args["data_file"]))
   for item in data:
-    print_divs(item, args.archive)
+    print_divs(item, args["archive"])
 
-  print TAIL.substitute(date=datetime.datetime.now().strftime("%c"),
-                        url=args.source)
-
+  print TAIL.substitute(source=args["source"], 
+                        date=args["date"],
+                        archive=args["archive"],
+                        code=args["code"])
 
 if __name__ == "__main__":
   argp = argparse.ArgumentParser()
   argp.add_argument('data_file', help='JSON output from crawl.py (CrawlBasho)')
-  argp.add_argument('title', help='html title')
-  argp.add_argument('archive', help='Internet Archive identifier')
-  argp.add_argument('source', help='source URL')
+  argp.add_argument('selector', help='config.json selector')
+  args = argp.parse_args()
 
-  main(argp.parse_args())
+  with open("config.json") as fp:
+    config = json.loads(fp.read())
+    _input = config[args.selector]
+    _input["data_file"] = args.data_file
+    _input["code"] = config["code"]
+    main(_input)
+
