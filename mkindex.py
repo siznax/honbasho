@@ -23,7 +23,7 @@ CSS = """
   float:left;
   height:240px;
   width:427px;
-  background:#ccc;
+  background:#000;
   margin-right:1em;
   margin-bottom:2em;
 }
@@ -53,9 +53,10 @@ Date: ${date}<br>
 TEXT_TEMPLATE = Template("""
 <p><b>${bold}</b>: ${text}</p>
 """)
-VIDEO_TEMPLATE = Template("""<video controls preload="none">
-  <source src="${mp4}" type="video/mp4">
-  <source src="${ogg}" type="video/ogg">
+VIDEO_TEMPLATE = Template("""<video controls preload="none"
+ poster="${poster}">
+ <source src="${mp4}" type="video/mp4">
+ <source src="${ogg}" type="video/ogg">
 Your browser does not support the video tag.
 </video>""")
 
@@ -63,10 +64,13 @@ Your browser does not support the video tag.
 def print_divs(item, archive):
   mp4 = item['movie'].split('/')[-1]
   ogg = mp4.replace('.mp4', '.ogg')
+  poster = mp4.replace('.mp4', '.gif')
   mp4_url = "%s/%s/%s" % (DOWNLOAD, archive, mp4)
   ogg_url = "%s/%s/%s" % (DOWNLOAD, archive, ogg)
+  poster_url = "%s/%s/%s" % (DOWNLOAD, archive, poster)
   bold = os.path.splitext(mp4)[0].split('_')[-1]
-  video = VIDEO_TEMPLATE.substitute(mp4=mp4_url, ogg=ogg_url)
+  video = VIDEO_TEMPLATE.substitute(
+    poster=poster_url, mp4=mp4_url, ogg=ogg_url)
   text = TEXT_TEMPLATE.substitute(bold=bold, text=item['txt'])
   print MOVIE_DIV.substitute(video=video, text=text)
 
