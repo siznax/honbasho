@@ -13,8 +13,9 @@ import urlparse
 
 class CrawlBasho:
 
-  def __init__(self, url):
-    self.url = urlparse.urlparse(url)
+  def __init__(self, dest, config):
+    self.dest = dest
+    self.url = urlparse.urlparse(config["source"])
     self.base = "%s://%s" % (self.url.scheme, self.url.netloc)
     self.list = self.base + self.url.path
     self.basho = self.base + self.url.path.replace('/list', '')
@@ -59,8 +60,27 @@ class CrawlBasho:
     doc = lxml.html.fromstring(html)
     for elm in doc.cssselect("a.arr"):
       href = "%s/%s" % (self.basho, elm.attrib['href'])
-      print "  " + href
+      print "  detail: " + href
       self.data.append({"href": href})
+
+
+  def get_description(self, doc):
+    day = doc.cssselect("td.day")[0].text
+    text = doc.cssselect("p.txt")[0].text
+    east = doc.cssselect("td.brLb a")[0].text
+    west = doc.cssselect("td.brRb a")[0].text
+    tech = doc.cssselect("td.decide")[0].text
+    desc = (text + " %s day %s %s (%s)" % (day, east, west, tech)).strip()
+    print "  desc: " + desc
+    return desc
+
+
+  def get_movie_href(self, doc):
+    onclick = doc.cssselect("p.movie a")[0].attrib['onclick']
+    movie = str(onclick.split("'")[1])
+    href = "%s/%s" % (self.base, movie)
+    print "  movie: " + href
+    return href
 
 
   def get_details(self, data):
@@ -70,16 +90,8 @@ class CrawlBasho:
     fname = self.dest + "-{0:02d}".format(self.index) + ".html"
     page = self.get_html(fname, data['href'])
     doc = lxml.html.fromstring(page)
-
-    txt = doc.cssselect("p.txt")[0].text
-    print "  txt: " + txt
-    data['txt'] = txt
-
-    onclick = doc.cssselect("p.movie a")[0].attrib['onclick']
-    movie = str(onclick.split("'")[1])
-    href = "%s/%s" % (self.base, movie)
-    print "  movie: " + href
-    data['movie'] = href
+    data['txt'] = self.get_description(doc)
+    data['movie'] = self.get_movie_href(doc)
 
 
 def print_json(data):
@@ -93,16 +105,15 @@ def main(args):
   """
   crawl grand sumo hightlights and output metadata as JSON
       href:  <details_url>
-      movie: <mp4_url>
       txt:   <description>
+      movie: <mp4_url>
   """
   with open("config.json") as fp:
     config = json.loads(fp.read())
-    basho = CrawlBasho(config[args.selector]["source"])
-    basho.dest = args.selector
+    basho = CrawlBasho(args.selector, config[args.selector])
     # print vars(basho)
     basho.crawl()
-    # print_json(basho.data)
+    print_json(basho.data)
 
 if __name__ == "__main__":
     argp = argparse.ArgumentParser()
