@@ -70,7 +70,7 @@ class CrawlBasho:
     east = doc.cssselect("td.brLb a")[0].text
     west = doc.cssselect("td.brRb a")[0].text
     tech = doc.cssselect("td.decide")[0].text
-    desc = (text + " %s day %s %s (%s)" % (day, east, west, tech)).strip()
+    desc = "%s day %s %s (%s) %s" % (day, east, west, tech, text)
     print "  desc: " + desc
     return desc
 
