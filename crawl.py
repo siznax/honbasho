@@ -66,11 +66,16 @@ class CrawlBasho:
 
   def get_description(self, doc):
     day = doc.cssselect("td.day")[0].text
+    win = doc.cssselect("td.win a")[0].text
     text = doc.cssselect("p.txt")[0].text
     east = doc.cssselect("td.brLb a")[0].text
     west = doc.cssselect("td.brRb a")[0].text
+    if east == win:
+      east += "*"
+    if west == win:
+      west += "*"
     tech = doc.cssselect("td.decide")[0].text
-    desc = "%s day %s %s (%s) %s" % (day, east, west, tech, text)
+    desc = ("%s day %s %s (%s) %s" % (day, east, west, tech, text)).strip()
     print "  desc: " + desc
     return desc
 
