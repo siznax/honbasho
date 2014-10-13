@@ -32,6 +32,7 @@ upload to Internet Archive:
 
 Archived highlights
 
+ * [Aki 2014 (September)](https://archive.org/download/honbasho-2014-aki) [[archive](https://archive.org/details/honbasho-2014-aki)]
  * [Nagoya 2014 (July)](https://archive.org/download/honbasho-2014-nagoya) [[archive](https://archive.org/details/honbasho-2014-nagoya)]
  * [Natsu 2014 (May)](https://archive.org/download/honbasho-2014-natsu) [[archive](https://archive.org/details/honbasho-2014-natsu)]
 
