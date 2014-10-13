@@ -24,6 +24,7 @@ def write_text_file(fname, data):
 def write_movie_file(fname, data):
   if not os.path.exists(fname):
     with open(fname, 'wb') as fp:
+      print "CURL " + data['movie']
       curl = pycurl.Curl()
       curl.setopt(pycurl.URL, data['movie'])
       curl.setopt(pycurl.WRITEDATA, fp)
@@ -35,14 +36,13 @@ def write_movie_file(fname, data):
   sys.stdout.flush()
 
 
-def download(item):
+def download(item, dest):
   url = item['movie']
-  print "+ " + url
   movie_file = url.split('/')[-1]
   text_file = movie_file.replace(os.path.splitext(movie_file)[-1], '.txt')
 
-  write_text_file(text_file, item)
-  write_movie_file(movie_file, item)
+  write_text_file(os.path.join(dest, text_file), item)
+  write_movie_file(os.path.join(dest, movie_file), item)
 
 
 def main(args):
@@ -52,10 +52,11 @@ def main(args):
 
   data = json.load(open(args.data_file))
   for item in data:
-    download(item)
+    download(item, args.dest)
 
 
 if __name__ == "__main__":
   argp = argparse.ArgumentParser()
+  argp.add_argument('dest', help='destination path')
   argp.add_argument('data_file', help='JSON output from crawl.py (CrawlBasho)')
   main(argp.parse_args())
