@@ -26,7 +26,7 @@ def write_movie_file(fname, data):
     with open(fname, 'wb') as fp:
       print "CURL " + data['movie']
       curl = pycurl.Curl()
-      curl.setopt(pycurl.URL, data['movie'])
+      curl.setopt(pycurl.URL, str(data['movie']))
       curl.setopt(pycurl.WRITEDATA, fp)
       curl.perform()
       curl.close()
