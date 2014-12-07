@@ -8,7 +8,6 @@ import argparse
 import json
 import os
 import sys
-import datetime
 
 from string import Template
 
@@ -28,6 +27,7 @@ CSS = """
   margin-bottom:2em;
 }
 """
+DETAILS = 'https://archive.org/details'
 DOWNLOAD = 'https://archive.org/download'
 HTML_TEMPLATE = Template("""<!doctype html>
 <head>
@@ -46,7 +46,7 @@ TAIL = Template("""<br clear="both">
 <p>
 Source: <a href="${source}">${source}</a><br>
 Code: <a href="${code}">${code}</a><br>
-Archive: <a href="https://archive.org/details/${archive}">${archive}</a><br>
+Archive: <a href="${details}/${archive}">${details}/${archive}</a><br>
 Date: ${date}<br>
 </p>""")
 
@@ -69,28 +69,32 @@ def print_divs(item, archive):
   ogg_url = "%s/%s/%s" % (DOWNLOAD, archive, ogg)
   poster_url = "%s/%s/%s" % (DOWNLOAD, archive, poster)
   bold = os.path.splitext(mp4)[0].split('_')[-1]
-  video = VIDEO_TEMPLATE.substitute(
-    poster=poster_url, mp4=mp4_url, ogg=ogg_url)
+  video = VIDEO_TEMPLATE.substitute(poster=poster_url,
+                                    mp4=mp4_url, ogg=ogg_url)
   text = TEXT_TEMPLATE.substitute(bold=bold, text=item['txt'])
   print MOVIE_DIV.substitute(video=video, text=text)
 
 
-def main(args):
+def main(config):
 
-  if not os.path.exists(args["data_file"]):
-    print "data_file not found: " + args["data_file"]
-    sys.exit(os.EX_USAGE)
+  if not os.path.exists(config["data_file"]):
+    print "ERROR data_file not found: " + config["data_file"]
+    sys.exit(os.EX_NOINPUT)
 
-  print HTML_TEMPLATE.substitute(title=args["title"], css=CSS)
+  print HTML_TEMPLATE.substitute(title=config["title"].encode("utf-8"),
+                                 css=CSS)
 
-  data = json.load(open(args["data_file"]))
-  for item in data:
-    print_divs(item, args["archive"])
+  with open(config["data_file"]) as fp:
+    data = json.loads(fp.read())
+    for item in data:
+      print_divs(item, config["archive"])
 
-  print TAIL.substitute(source=args["source"], 
-                        date=args["date"],
-                        archive=args["archive"],
-                        code=args["code"])
+  print TAIL.substitute(source=config["source"],
+                        date=config["date"],
+                        details=DETAILS,
+                        archive=config["archive"],
+                        code=config["code"])
+  sys.exit(os.EX_OK)
 
 if __name__ == "__main__":
   argp = argparse.ArgumentParser()
@@ -98,10 +102,15 @@ if __name__ == "__main__":
   argp.add_argument('selector', help='config.json selector')
   args = argp.parse_args()
 
-  with open("config.json") as fp:
-    config = json.loads(fp.read())
-    _input = config[args.selector]
-    _input["data_file"] = args.data_file
-    _input["code"] = config["code"]
-    main(_input)
+  config_file = "config.json"
 
+  if os.path.exists(config_file):
+    with open(config_file) as fp:
+      cfg_json = json.loads(fp.read())
+      config = cfg_json[args.selector]
+      config["data_file"] = args.data_file
+      config["code"] = cfg_json["code"]
+      main(config)
+
+  print "ERROR config file not found: " + config_file
+  sys.exit(os.EX_NOINPUT)
