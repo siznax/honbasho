@@ -1,4 +1,4 @@
-# HOW-TO archive grand sumo highlights
+## HOW-TO archive grand sumo highlights
 
 update config file:
 
@@ -30,7 +30,7 @@ upload to Internet Archive:
     * DERIVE all after last upload
     * S3 upload index.html
 
-Archived highlights
+### Archived highlights
 
  * [Kyūshū 2014 (November)](https://archive.org/download/honbasho-2014-kyushu) [[archive](https://archive.org/details/honbasho-2014-kyushu)]
  * [Aki 2014 (September)](https://archive.org/download/honbasho-2014-aki) [[archive](https://archive.org/details/honbasho-2014-aki)]
