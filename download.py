@@ -13,7 +13,7 @@ import sys
 def write_text_file(fname, data):
   if not os.path.exists(fname):
     with open(fname, 'w') as fp:
-      fp.write(data['txt'] + "\n")
+      fp.write(data['txt'].encode('utf-8') + "\n")
       fp.write(data['href'] + "\n")
       print "  wrote %d byes to %s" % (fp.tell(), fname)
   else:

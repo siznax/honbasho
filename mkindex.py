@@ -17,6 +17,7 @@ CSS = """
 }
 .movie p {
   font-size:x-large;
+  font-family:meiryo, verdana, Osaka;
 }
 .movie video {
   float:left;
@@ -72,7 +73,7 @@ def print_divs(item, archive):
   video = VIDEO_TEMPLATE.substitute(poster=poster_url,
                                     mp4=mp4_url, ogg=ogg_url)
   text = TEXT_TEMPLATE.substitute(bold=bold, text=item['txt'])
-  print MOVIE_DIV.substitute(video=video, text=text)
+  print MOVIE_DIV.substitute(video=video, text=text).encode('utf-8')
 
 
 def main(config):

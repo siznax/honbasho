@@ -75,7 +75,8 @@ class CrawlBasho:
     if west == win:
       west += "*"
     tech = doc.cssselect("td.decide")[0].text
-    desc = ("%s day %s %s (%s) %s" % (day, east, west, tech, text)).strip()
+    desc = "%s day %s %s (%s) %s" % (day, east, west, tech, text)
+    desc = desc.strip().encode('utf-8')
     print "  desc: " + desc
     return desc
 
@@ -101,6 +102,7 @@ class CrawlBasho:
 
 def print_json(data):
     print json.dumps(data,
+                     encoding='utf-8',
                      sort_keys=True,
                      indent=4,
                      separators=(',', ': '))
