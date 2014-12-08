@@ -1,4 +1,4 @@
-honbasho - archive grand sumo highlights
+# HOW-TO archive grand sumo highlights
 
 update config file:
 
