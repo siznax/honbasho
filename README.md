@@ -34,6 +34,9 @@ upload to Internet Archive:
 
 <table>
 <tr>
+ <th>Highlights
+ <th>Archive
+<tr>
  <td><a href="https://archive.org/download/honbasho-2014-kyushu">Kyūshū 2014</a> (November)
  <td><a href="https://archive.org/details/honbasho-2014-kyushu">honbasho-2014-kyushu</a>
 <tr>
