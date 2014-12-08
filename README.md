@@ -32,10 +32,20 @@ upload to Internet Archive:
 
 ### Archived highlights
 
- * [Kyūshū 2014 (November)](https://archive.org/download/honbasho-2014-kyushu) [[archive](https://archive.org/details/honbasho-2014-kyushu)]
- * [Aki 2014 (September)](https://archive.org/download/honbasho-2014-aki) [[archive](https://archive.org/details/honbasho-2014-aki)]
- * [Nagoya 2014 (July)](https://archive.org/download/honbasho-2014-nagoya) [[archive](https://archive.org/details/honbasho-2014-nagoya)]
- * [Natsu 2014 (May)](https://archive.org/download/honbasho-2014-natsu) [[archive](https://archive.org/details/honbasho-2014-natsu)]
+<table>
+<tr>
+ <td><a href="https://archive.org/download/honbasho-2014-kyushu">Kyūshū 2014</a> (November)
+ <td><a href="https://archive.org/details/honbasho-2014-kyushu">honbasho-2014-kyushu</a>
+<tr>
+ <td><a href="https://archive.org/download/honbasho-2014-aki">Aki 2014</a> (September)
+ <td><a href="https://archive.org/details/honbasho-2014-aki">honbasho-2014-aki</a>
+<tr>
+ <td><a href="https://archive.org/download/honbasho-2014-nagoya">Nagoya 2014</a> (July)
+ <td><a href="https://archive.org/details/honbasho-2014-nagoya">honbasho-2014-nagoya</a>
+<tr>
+ <td><a href="https://archive.org/download/honbasho-2014-natsu">Natsu 2014</a> (May)
+ <td><a href="https://archive.org/details/honbasho-2014-natsu">honbasho-2014-natsu</a>
+</table>
 
 
 @siznax
