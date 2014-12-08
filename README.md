@@ -3,11 +3,11 @@ honbasho - archive grand sumo highlights
 update config file:
 
     {
-        "201409": {
-        "source": "http://www.sumo.or.jp/en/honbasho/topics/ko_torikumi15/list",
-        "date": "11 October 2014",
-        "title": "Aki 2014 (September) sumo highlights",
-        "archive": "honbasho-2014-aki"
+        "201411": {
+    	"source": "http://www.sumo.or.jp/en/honbasho/topics/ko_torikumi15/list",
+    	"date": "4 December 2014",
+    	"title": "Kyūshū 2014 (November) Grand Sumo Highlights",
+    	"archive": "honbasho-2014-kyushu"
         },
     ...
 
@@ -24,7 +24,7 @@ crawl and download:
 
 upload to Internet Archive:
 
-    * S3 upload to archive.org
+    * S3 upload *.mp4, *.txt to archive.org
     * mediatype: movies
     * collection: opensource_media
     * DERIVE all after last upload
@@ -32,6 +32,7 @@ upload to Internet Archive:
 
 Archived highlights
 
+ * [Kyūshū 2014 (November)](https://archive.org/download/honbasho-2014-kyushu) [[archive](https://archive.org/details/honbasho-2014-kyushu)]
  * [Aki 2014 (September)](https://archive.org/download/honbasho-2014-aki) [[archive](https://archive.org/details/honbasho-2014-aki)]
  * [Nagoya 2014 (July)](https://archive.org/download/honbasho-2014-nagoya) [[archive](https://archive.org/details/honbasho-2014-nagoya)]
  * [Natsu 2014 (May)](https://archive.org/download/honbasho-2014-natsu) [[archive](https://archive.org/details/honbasho-2014-natsu)]
