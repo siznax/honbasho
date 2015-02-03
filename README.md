@@ -2,7 +2,7 @@ honbasho
 ========
 
 Archive [Grand Sumo](http://www.sumo.or.jp/en/) tournament
-hightlights, as they are removed by Nihon Sumo Kyokai before each
+highlights, as they are removed by _Nihon Sumo Kyokai_ before each 
 tournament.
 
 Usage
@@ -10,11 +10,16 @@ Usage
 
 Update config file, e.g.:
 
+```json
+[
     "201501": {
 	"source": "http://www.sumo.or.jp/en/honbasho/topics/ko_torikumi15/list",
 	"date": "3 Feb 2015",
 	"title": "Hatsu 2015 (January) Grand Sumo Highlights",
 	"archive": "honbasho-2015-hatsu"
+    }, ...
+]
+```
 
 Crawl and Download:
 
@@ -29,20 +34,18 @@ $ download.py {dest} data.json
 $ mkindex.py data.json {selector} > index.html
 ```
 
-Upload to Internet Archive, e.g.:
+Upload to Internet Archive:
 
- * Upload with [siznax/iatools](https://github.com/siznax/iatools)
+ * Upload with [siznax/iatools](https://github.com/siznax/iatools) (below)
  * DERIVE all after last upload
- * S3 upload index.html
 
 ```shell
-$ workon honbasho
-(honbasho)$ iatools/s3upload.py honbasho-2015-hatsu index.html\
+(honbasho)$ iatools/s3upload.py {item} index.html\
  -m "mediatype:movies" "collection:opensource_media"
-(honbasho)$ iatools/s3upload.py honbasho-2015-hatsu *.txt
-(honbasho)$ iatools/s3upload.py honbasho-2015-hatsu *.mp4
+(honbasho)$ iatools/s3upload.py {item} *.txt
+(honbasho)$ iatools/s3upload.py {item} *.mp4
 ```
 
-See archived highlights at <https://siznax.github.io/honbasho >
+See archived highlights => https://siznax.github.io/honbasho
 
 @siznax
