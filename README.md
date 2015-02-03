@@ -1,54 +1,48 @@
-## HOW-TO archive grand sumo highlights
+honbasho
+========
 
-update config file:
+Archive [Grand Sumo](http://www.sumo.or.jp/en/) tournament
+hightlights, as they are removed by Nihon Sumo Kyokai before each
+tournament.
 
-    {
-        "201411": {
-    	"source": "http://www.sumo.or.jp/en/honbasho/topics/ko_torikumi15/list",
-    	"date": "4 December 2014",
-    	"title": "Kyūshū 2014 (November) Grand Sumo Highlights",
-    	"archive": "honbasho-2014-kyushu"
-        },
-    ...
+Usage
+-----
 
-crawl and download:
+Update config file, e.g.:
 
-    # get highlights metadata
-    $ crawl.py {selector} > data.json
+    "201501": {
+	"source": "http://www.sumo.or.jp/en/honbasho/topics/ko_torikumi15/list",
+	"date": "3 Feb 2015",
+	"title": "Hatsu 2015 (January) Grand Sumo Highlights",
+	"archive": "honbasho-2015-hatsu"
 
-    # download movies and text
-    $ download.py {dest} data.json
+Crawl and Download:
 
-    # make HTML index
-    $ mkindex.py data.json {selector} > index.html
+```shell
+# get highlights metadata
+$ crawl.py {selector} > data.json
 
-upload to Internet Archive:
+# download movies and text
+$ download.py {dest} data.json
 
-    * S3 upload *.mp4, *.txt to archive.org
-    * mediatype: movies
-    * collection: opensource_media
-    * DERIVE all after last upload
-    * S3 upload index.html
+# make HTML index
+$ mkindex.py data.json {selector} > index.html
+```
 
-### Archived highlights
+Upload to Internet Archive, e.g.:
 
-<table>
-<tr>
- <th>Highlights
- <th>Archive
-<tr>
- <td><a href="https://archive.org/download/honbasho-2014-kyushu/index.html">Kyūshū 2014</a> (November)
- <td><a href="https://archive.org/details/honbasho-2014-kyushu">honbasho-2014-kyushu</a>
-<tr>
- <td><a href="https://archive.org/download/honbasho-2014-aki/index.html">Aki 2014</a> (September)
- <td><a href="https://archive.org/details/honbasho-2014-aki">honbasho-2014-aki</a>
-<tr>
- <td><a href="https://archive.org/download/honbasho-2014-nagoya/index.html">Nagoya 2014</a> (July)
- <td><a href="https://archive.org/details/honbasho-2014-nagoya">honbasho-2014-nagoya</a>
-<tr>
- <td><a href="https://archive.org/download/honbasho-2014-natsu/index.html">Natsu 2014</a> (May)
- <td><a href="https://archive.org/details/honbasho-2014-natsu">honbasho-2014-natsu</a>
-</table>
+ * Upload with [siznax/iatools](https://github.com/siznax/iatools)
+ * DERIVE all after last upload
+ * S3 upload index.html
 
+```shell
+$ workon honbasho
+(honbasho)$ iatools/s3upload.py honbasho-2015-hatsu index.html\
+ -m "mediatype:movies" "collection:opensource_media"
+(honbasho)$ iatools/s3upload.py honbasho-2015-hatsu *.txt
+(honbasho)$ iatools/s3upload.py honbasho-2015-hatsu *.mp4
+```
+
+See archived highlights at <https://siznax.github.io/honbasho >
 
 @siznax
