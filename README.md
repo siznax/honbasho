@@ -2,8 +2,7 @@ honbasho
 ========
 
 Archive [Grand Sumo](http://www.sumo.or.jp/en/) tournament
-highlights, as they are removed by _Nihon Sumo Kyokai_ before each 
-tournament.
+highlights, as they are _removed_ :sob: before each new tournament. 
 
 Usage
 -----
@@ -44,9 +43,9 @@ Upload to Internet Archive:
 (honbasho)$ iatools/s3upload.py {item} *.txt
 (honbasho)$ iatools/s3upload.py {item} *.mp4
 
-# visit https://archive.org/details/{item}, visit Item Manager,
-# select re-derive all. 
-
+# visit https://archive.org/details/{item},
+#     goto Item Manager,
+#     select re-derive all.
 ```
 
 See archived highlights => https://siznax.github.io/honbasho
