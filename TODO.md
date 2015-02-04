@@ -11,6 +11,7 @@ merging the comments by hand. See, for example:
 
 * [201411/en/data.json](https://github.com/siznax/honbasho/blob/master/201411/en/data.json)
 * [201411/jp/data.json](https://github.com/siznax/honbasho/blob/master/201411/jp/data.json)
+* [201411/index.html](https://github.com/siznax/honbasho/blob/master/201411/index.html)
 
 Automate this...
 
