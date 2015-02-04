@@ -10,7 +10,7 @@ Usage
 
 Update config file, e.g.:
 
-```json
+```
 [
     "201501": {
 	"source": "http://www.sumo.or.jp/en/honbasho/topics/ko_torikumi15/list",
@@ -40,8 +40,7 @@ Upload to Internet Archive:
  * DERIVE all after last upload
 
 ```shell
-(honbasho)$ iatools/s3upload.py {item} index.html\
- -m "mediatype:movies" "collection:opensource_media"
+(honbasho)$ iatools/s3upload.py {item} index.html -m "mediatype:movies" "collection:opensource_media"
 (honbasho)$ iatools/s3upload.py {item} *.txt
 (honbasho)$ iatools/s3upload.py {item} *.mp4
 ```
