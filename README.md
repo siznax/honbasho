@@ -33,19 +33,12 @@ $ download.py {dest} data.json
 $ mkindex.py data.json {selector} > highlights.html
 ```
 
-Upload to Internet Archive:
-
- * Upload with [siznax/iatools](https://github.com/siznax/iatools)
- * DERIVE all after last upload
+Upload to Internet Archive (may use [siznax/iatools](https://github.com/siznax/iatools))
 
 ```shell
 (honbasho)$ iatools/s3upload.py {item} *.html -m "mediatype:movies" "collection:opensource_media"
 (honbasho)$ iatools/s3upload.py {item} *.txt
 (honbasho)$ iatools/s3upload.py {item} *.mp4
-
-# visit https://archive.org/details/{item},
-#     goto Item Manager,
-#     select re-derive all.
 ```
 
 See archived highlights => https://siznax.github.io/honbasho
