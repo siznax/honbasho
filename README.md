@@ -31,7 +31,7 @@ $ crawl.py {selector} > data.json
 $ download.py {dest} data.json
 
 # make HTML index
-$ mkindex.py data.json {selector} > index.html
+$ mkindex.py data.json {selector} > highlights.html
 ```
 
 Upload to Internet Archive:
@@ -40,7 +40,7 @@ Upload to Internet Archive:
  * DERIVE all after last upload
 
 ```shell
-(honbasho)$ iatools/s3upload.py {item} index.html -m "mediatype:movies" "collection:opensource_media"
+(honbasho)$ iatools/s3upload.py {item} *.html -m "mediatype:movies" "collection:opensource_media"
 (honbasho)$ iatools/s3upload.py {item} *.txt
 (honbasho)$ iatools/s3upload.py {item} *.mp4
 
