@@ -1,5 +1,11 @@
 {
-    "201504": {
+    "201505": {
+	"source": "http://www.sumo.or.jp/en/honbasho/topics/ko_torikumi15/list",
+	"date": "3 Jun 2015",
+	"title": "Natsu 2015 (May) Grand Sumo Highlights",
+	"archive": "honbasho-2015-natsu"
+    },
+    "201503": {
 	"source": "http://www.sumo.or.jp/en/honbasho/topics/ko_torikumi15/list",
 	"date": "10 Apr 2015",
 	"title": "Haru 2015 (March) Grand Sumo Highlights",
