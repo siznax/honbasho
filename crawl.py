@@ -9,6 +9,7 @@ import lxml.html
 import os
 import requests
 import urlparse
+import sys
 
 
 class CrawlBasho:
@@ -39,16 +40,16 @@ class CrawlBasho:
     if os.path.exists(fname):
       with open(fname, "r") as fp:
         html = fp.read()
-        print "+ read %d bytes from %s" % (fp.tell(), fname)
+        sys.stderr.write("+ read %d bytes from %s\n" % (fp.tell(), fname))
         return html
 
-    print "GET " + url
+    sys.stderr.write("GET " + url)
     html = requests.get(url).text.encode('utf-8')
     if not os.path.exists(self.dest):
       os.mkdir(self.dest)
     with open(fname, "w") as fp:
       fp.write(html)
-      print "+ wrote %d bytes to %s" % (fp.tell(), fname)
+      sys.stderr.write("+ wrote %d bytes to %s\n" % (fp.tell(), fname))
       return html
 
 
@@ -60,7 +61,7 @@ class CrawlBasho:
     doc = lxml.html.fromstring(html)
     for elm in doc.cssselect("a.arr"):
       href = "%s/%s" % (self.basho, elm.attrib['href'])
-      print "  detail: " + href
+      sys.stderr.write("  detail: " + href + "\n")
       self.data.append({"href": href})
 
 
@@ -77,7 +78,7 @@ class CrawlBasho:
     tech = doc.cssselect("td.decide")[0].text
     desc = "%s day %s %s (%s) %s" % (day, east, west, tech, text)
     desc = desc.strip().encode('utf-8')
-    print "  desc: " + desc
+    sys.stderr.write("  desc: " + desc + "\n")
     return desc
 
 
@@ -85,7 +86,7 @@ class CrawlBasho:
     onclick = doc.cssselect("p.movie a")[0].attrib['onclick']
     movie = str(onclick.split("'")[1])
     href = "%s/%s" % (self.base, movie)
-    print "  movie: " + href
+    sys.stderr.write("  movie: " + href + "\n")
     return href
 
 
