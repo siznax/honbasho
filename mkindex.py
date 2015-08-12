@@ -52,7 +52,7 @@ Date: ${date}<br>
 </p>""")
 
 TEXT_TEMPLATE = Template("""
-<p><b>${bold}</b>: ${text}</p>
+<p><b>Highlight ${bold}</b>: ${text}</p>
 """)
 VIDEO_TEMPLATE = Template("""<video controls preload="none"
  poster="${poster}">
