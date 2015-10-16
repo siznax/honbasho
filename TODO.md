@@ -7,13 +7,7 @@ Automerge Japanese and English comments
 In the past, Sumo Kyokai has provided English commentary on the
 highlights, but they have not for the last couple of basho. So I've
 been crawling both the English and Japanese highlights pages, and then
-merging the comments by hand. See, for example: 
-
-* [201411/en/data.json](https://github.com/siznax/honbasho/blob/master/201411/en/data.json)
-* [201411/jp/data.json](https://github.com/siznax/honbasho/blob/master/201411/jp/data.json)
-* [201411/index.html](https://github.com/siznax/honbasho/blob/master/201411/index.html)
-
-Automate this...
+merging the comments by hand. Automate this...
 
 1. crawl the [English](http://www.sumo.or.jp/en/honbasho/topics/ko_torikumi15/list) highlights
 2. download the mp4s
