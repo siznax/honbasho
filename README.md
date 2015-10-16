@@ -36,8 +36,7 @@ $ mkindex.py data.json {selector} > highlights.html
 Upload to Internet Archive (may use [siznax/iatools](https://github.com/siznax/iatools))
 
 ```shell
-(honbasho)$ iatools/s3upload.py {item} *.html -m "mediatype:movies" "collection:opensource_media"
-(honbasho)$ iatools/s3upload.py {item} *.txt
+(honbasho)$ iatools/s3upload.py {item} *.json -m "mediatype:movies" "collection:opensource_media"
 (honbasho)$ iatools/s3upload.py {item} *.mp4
 ```
 
