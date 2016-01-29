@@ -9,7 +9,7 @@ Usage
 
 Update config file, e.g.:
 
-```
+```json
 [
     "201501": {
 	"source": "http://www.sumo.or.jp/en/honbasho/topics/ko_torikumi15/list",
@@ -31,6 +31,8 @@ $ download.py {dest} data.json
 
 # make HTML index
 $ mkindex.py data.json {selector} > highlights.html
+
+# merge en/jp hightlights (automation TBD)
 ```
 
 Upload to Internet Archive (may use [siznax/iatools](https://github.com/siznax/iatools))
@@ -40,6 +42,10 @@ Upload to Internet Archive (may use [siznax/iatools](https://github.com/siznax/i
 (honbasho)$ iatools/s3upload.py {item} *.mp4
 ```
 
-See archived highlights => https://siznax.github.io/honbasho
+Update archived highlights on `gh-pages` branch.
+
+See https://siznax.github.io/honbasho
+
+Enjoy!
 
 @siznax
