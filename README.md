@@ -9,7 +9,7 @@ Usage
 
 Update config file, e.g.:
 
-```json
+```
 [
     "201501": {
 	"source": "http://www.sumo.or.jp/en/honbasho/topics/ko_torikumi15/list",
