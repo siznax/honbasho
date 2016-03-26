@@ -32,8 +32,9 @@ $ download.py {dest} data.json
 # make HTML index
 $ mkindex.py data.json {selector} > highlights.html
 
-# merge en/jp hightlights (automation TBD)
 ```
+
+Merge en/jp hightlights (automation TBD)
 
 Upload to Internet Archive (may use [siznax/iatools](https://github.com/siznax/iatools))
 
