@@ -34,7 +34,7 @@ class CrawlBasho:
 
   def get_html(self, fname, url):
     """
-    read HTML from disk or send GET request
+    GET HTML or read from file
     """
     fname = os.path.join(self.dest, fname)
     if os.path.exists(fname):
@@ -66,10 +66,9 @@ class CrawlBasho:
       sys.stderr.write("  jp: " + jp + "\n")
       self.data.append(hrefs)
 
-  def get_description(self, doc):
+  def get_description(self, doc, lang):
     day = doc.cssselect("td.day")[0].text
     win = doc.cssselect("td.win a")[0].text
-    text = doc.cssselect("p.txt")[0].text
     east = doc.cssselect("td.brLb a")[0].text
     west = doc.cssselect("td.brRb a")[0].text
     if east == win:
@@ -77,7 +76,11 @@ class CrawlBasho:
     if west == win:
       west += "*"
     tech = doc.cssselect("td.decide")[0].text
-    desc = "%s day %s %s (%s) %s" % (day, east, west, tech, text)
+    text = doc.cssselect("p.txt")[0].text
+    fmt = "%s %s %s (%s) %s"
+    if lang == "en":
+      fmt = "%s day %s %s (%s) %s"
+    desc = fmt % (day, east, west, tech, text)
     desc = desc.strip().encode('utf-8')
     sys.stderr.write("  desc: " + desc + "\n")
     return desc
@@ -99,7 +102,7 @@ class CrawlBasho:
     doc = lxml.html.fromstring(page)
     if 'txt' not in data:
       data['txt'] = {}
-    data['txt'][lang] = self.get_description(doc)
+    data['txt'][lang] = self.get_description(doc, lang)
     data['movie'] = self.get_movie_href(doc)
 
 
