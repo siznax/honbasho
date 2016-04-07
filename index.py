@@ -12,48 +12,55 @@ import sys
 from string import Template
 
 CSS = """
-.movie {
-  clear:both;
+body {
+    background:whitesmoke;
+    margin:auto;
+    width:500px;
+    padding:64px;
+    padding-top:0;
+    font-family:meiryo, verdana, Osaka;
 }
-.movie p {
-  font-size:x-large;
-  font-family:meiryo, verdana, Osaka;
+.movie {
+    background:white;
+    padding:8px;
+    padding-bottom:32px;
+}
+.movie p:first-of-type {
+    margin-top:0;
 }
 .movie video {
-  float:left;
-  height:240px;
-  width:427px;
-  background:#000;
-  margin-right:1em;
-  margin-bottom:2em;
+    width:480px;
+    height:270px;
+    background:#000;
 }
 """
 DETAILS = 'https://archive.org/details'
 DOWNLOAD = 'https://archive.org/download'
 HTML_TEMPLATE = Template("""<!doctype html>
 <head>
-<meta charset=utf-8>
+<meta charset="utf-8">
+<meta name="viewport" content="width=500">
 <title>${title}</title>
 <style>${css}</style>
 </head>
 <h1>${title}</h1>
 """)
 MOVIE_DIV = Template("""<div class=movie>
-${video}
 ${text}
+${video}
 </div>
 """)
-TAIL = Template("""<br clear="both">
-<p>
+TAIL = Template("""<p>
 Source: <a href="${source}">${source}</a><br>
-Code: <a href="${code}">${code}</a><br>
 Archive: <a href="${details}/${archive}">${details}/${archive}</a><br>
+Code: <a href="${code}">${code}</a><br>
 Date: ${date}<br>
 </p>""")
-
-TEXT_TEMPLATE = Template("""
-<p><b>Highlight ${bold}</b>: ${text}</p>
-""")
+TEXT_TEMPLATE = Template("""<p>
+<b>Highlight ${hnum}</b>
+<p id="jp">${jp}</p>
+<p id="en">${en}</p>
+</p>""")
 VIDEO_TEMPLATE = Template("""<video controls preload="none"
  poster="${poster}">
  <source src="${mp4}" type="video/mp4">
@@ -69,10 +76,13 @@ def print_divs(item, archive):
   mp4_url = "%s/%s/%s" % (DOWNLOAD, archive, mp4)
   ogg_url = "%s/%s/%s" % (DOWNLOAD, archive, ogg)
   poster_url = "%s/%s/%s" % (DOWNLOAD, archive, poster)
-  bold = os.path.splitext(mp4)[0].split('_')[-1]
-  video = VIDEO_TEMPLATE.substitute(poster=poster_url,
-                                    mp4=mp4_url, ogg=ogg_url)
-  text = TEXT_TEMPLATE.substitute(bold=bold, text=item['txt'])
+  video = VIDEO_TEMPLATE.substitute(
+    poster=poster_url,
+    mp4=mp4_url, ogg=ogg_url)
+  text = TEXT_TEMPLATE.substitute(
+    hnum=os.path.splitext(mp4)[0].split('_')[-1],
+    jp=item['txt']['jp'],
+    en=item['txt']['en'])
   print MOVIE_DIV.substitute(video=video, text=text).encode('utf-8')
 
 
@@ -81,9 +91,8 @@ def main(config):
   if not os.path.exists(config["data_file"]):
     print "ERROR data_file not found: " + config["data_file"]
     sys.exit(os.EX_NOINPUT)
-
-  print HTML_TEMPLATE.substitute(title=config["title"].encode("utf-8"),
-                                 css=CSS)
+  title = config["title"].encode("utf-8").replace("Grand", "<br>Grand")
+  print HTML_TEMPLATE.substitute(title=title, css=CSS)
 
   with open(config["data_file"]) as fp:
     data = json.loads(fp.read())
