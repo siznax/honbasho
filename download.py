@@ -10,15 +10,15 @@ import pycurl
 import sys
 
 
-def write_text_file(fname, data):
-  if not os.path.exists(fname):
-    with open(fname, 'w') as fp:
-      fp.write(data['txt'].encode('utf-8') + "\n")
-      fp.write(data['href'] + "\n")
-      print "  wrote %d byes to %s" % (fp.tell(), fname)
-  else:
-    print "  " + fname
-  sys.stdout.flush()
+# def write_text_file(fname, data):
+#   if not os.path.exists(fname):
+#     with open(fname, 'w') as fp:
+#       fp.write(data['txt'].encode('utf-8') + "\n")
+#       fp.write(data['href'] + "\n")
+#       print "  wrote %d byes to %s" % (fp.tell(), fname)
+#   else:
+#     print "  " + fname
+#   sys.stdout.flush()
 
 
 def write_movie_file(fname, data):
@@ -39,10 +39,9 @@ def write_movie_file(fname, data):
 def download(item, dest):
   url = item['movie']
   movie_file = url.split('/')[-1]
-  text_file = movie_file.replace(os.path.splitext(movie_file)[-1], '.txt')
-
-  write_text_file(os.path.join(dest, text_file), item)
   write_movie_file(os.path.join(dest, movie_file), item)
+  # text_file = movie_file.replace(os.path.splitext(movie_file)[-1], '.txt')
+  # write_text_file(os.path.join(dest, text_file), def)
 
 
 def main(args):
@@ -56,6 +55,7 @@ def main(args):
 
 
 if __name__ == "__main__":
+  """download movie files for upload to archive.org"""
   argp = argparse.ArgumentParser()
   argp.add_argument('dest', help='destination path')
   argp.add_argument('data_file', help='JSON output from crawl.py (CrawlBasho)')
