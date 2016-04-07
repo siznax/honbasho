@@ -37,8 +37,9 @@ $ index.py data.json {selector} > highlights.html
 Upload to Internet Archive (may use [siznax/iatools](https://github.com/siznax/iatools))
 
 ```shell
-(honbasho)$ iatools/s3upload.py {item} *.json -m "mediatype:movies" "collection:opensource_media"
-(honbasho)$ iatools/s3upload.py {item} *.mp4
+$ iatools/s3upload.py {item} data.json -m "mediatype:movies" "collection:opensource_media"
+$ iatools/s3upload.py {item} highlights.html
+$ iatools/s3upload.py {item} *.mp4
 ```
 
 Update archived highlights on `gh-pages` branch.
