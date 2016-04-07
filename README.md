@@ -30,11 +30,9 @@ $ crawl.py {selector} > data.json
 $ download.py {dest} data.json
 
 # make HTML index
-$ mkindex.py data.json {selector} > highlights.html
+$ index.py data.json {selector} > highlights.html
 
 ```
-
-Merge en/jp hightlights (automation TBD)
 
 Upload to Internet Archive (may use [siznax/iatools](https://github.com/siznax/iatools))
 
