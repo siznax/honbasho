@@ -102,7 +102,7 @@ def main(config):
                           date=config["date"],
                           details=DETAILS,
                           archive=config["archive"],
-                          acode=config["code"])
+                          code=config["code"])
     sys.exit(os.EX_OK)
 
 
