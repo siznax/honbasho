@@ -14,8 +14,8 @@ from string import Template
 CSS = """
 body {
     margin:auto;
-    width:500px;
-    padding:64px;
+    width:720px;
+    padding:32px;
     padding-top:0;
     font-family:meiryo, verdana, Osaka;
 }
@@ -27,8 +27,8 @@ body {
     margin-top:0;
 }
 .movie video {
-    width:480px;
-    height:270px;
+    width:640px;
+    height:360px;
     background:#000;
 }
 """
@@ -37,7 +37,7 @@ DOWNLOAD = 'https://archive.org/download'
 HTML_TEMPLATE = Template("""<!doctype html>
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=500">
+<meta name="viewport" content="width=720">
 <title>${title}</title>
 <style>${css}</style>
 </head>
@@ -78,7 +78,7 @@ def print_divs(item, archive):
     poster=poster_url,
     mp4=mp4_url, ogg=ogg_url)
   text = TEXT_TEMPLATE.substitute(
-    hnum=os.path.splitext(mp4)[0].split('_')[-1],
+    hnum=int(os.path.splitext(mp4)[0].split('_')[-1]),
     jp=item['txt']['jp'],
     en=item['txt']['en'])
   print MOVIE_DIV.substitute(video=video, text=text).encode('utf-8')
