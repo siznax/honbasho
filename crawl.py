@@ -108,6 +108,7 @@ class CrawlBasho:
 
 def print_json(data):
   print json.dumps(data,
+                   ensure_ascii=False,
                    encoding='utf-8',
                    sort_keys=True,
                    indent=4,
