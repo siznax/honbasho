@@ -13,7 +13,6 @@ from string import Template
 
 CSS = """
 body {
-    background:whitesmoke;
     margin:auto;
     width:500px;
     padding:64px;
@@ -21,7 +20,6 @@ body {
     font-family:meiryo, verdana, Osaka;
 }
 .movie {
-    background:white;
     padding:8px;
     padding-bottom:32px;
 }
