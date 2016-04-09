@@ -1,8 +1,4 @@
 #!/usr/bin/env python2.7
-# -*- coding: utf-8 -*-
-
-__author__ = "siznax"
-__version__ = "Jun 2014"
 
 import argparse
 import json

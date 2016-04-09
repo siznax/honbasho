@@ -10,9 +10,6 @@ import requests
 import urlparse
 import sys
 
-__author__ = "siznax"
-__version__ = "Oct 2014"
-
 
 class CrawlBasho:
     """Crawl Grand Sumo hightlights"""

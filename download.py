@@ -8,9 +8,6 @@ import os
 import pycurl
 import sys
 
-__author__ = "siznax"
-__version__ = "Jun 2014"
-
 
 def write_movie_file(fname, data):
     if not os.path.exists(fname):
