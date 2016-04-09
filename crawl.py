@@ -10,11 +10,13 @@ import requests
 import urlparse
 import sys
 
+from settings import Default
+
 
 class CrawlBasho:
     """Crawl Grand Sumo hightlights"""
 
-    def __init__(self, dest, config):
+    def __init__(self, dest, config, user_agent):
         self.dest = dest
         self.url = urlparse.urlparse(config["source"])
         self.base = "%s://%s" % (self.url.scheme, self.url.netloc)
@@ -42,7 +44,8 @@ class CrawlBasho:
                 return html
 
         print("GET " + url, filed=sys.stderr, file=sys.stderr)
-        html = requests.get(url).text.encode('utf-8')
+        headers = {'User-Agent': self.user_agent}
+        html = requests.get(url, headers=headers).text.encode('utf-8')
         if not os.path.exists(self.dest):
             os.mkdir(self.dest)
         with open(fname, "w") as fp:
@@ -102,17 +105,19 @@ class CrawlBasho:
 
 
 def main(args):
-    """returns JSON"""
     with open("config.json") as fp:
         config = json.loads(fp.read())
-        basho = CrawlBasho(args.selector, config[args.selector])
-        basho.crawl()
-        print(json.dumps(basho.data,
-                         ensure_ascii=False,
-                         encoding='utf-8',
-                         sort_keys=True,
-                         indent=4,
-                         separators=(',', ': ')).encode('utf8'))
+    basho = CrawlBasho(args.selector,
+                       config[args.selector],
+                       Default.USER_AGENT)
+    basho.crawl()
+    print(json.dumps(basho.data,
+                     ensure_ascii=False,
+                     encoding='utf-8',
+                     sort_keys=True,
+                     indent=4,
+                     separators=(',', ': ')).encode('utf8'))
+
 
 if __name__ == "__main__":
     argp = argparse.ArgumentParser()

@@ -8,6 +8,8 @@ import os
 import pycurl
 import sys
 
+from settings import Default
+
 
 def write_movie_file(fname, data):
     if not os.path.exists(fname):
@@ -16,6 +18,7 @@ def write_movie_file(fname, data):
             curl = pycurl.Curl()
             curl.setopt(pycurl.URL, str(data['movie']))
             curl.setopt(pycurl.WRITEDATA, fp)
+            curl.setopt(pycurl.USERAGENT, Default.USER_AGENT)
             curl.perform()
             curl.close()
             print("+ wrote %d byes to %s" % (fp.tell(), fname),
