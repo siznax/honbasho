@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python
 
 from __future__ import print_function
 
@@ -39,17 +39,19 @@ class CrawlBasho:
         if os.path.exists(fname):
             with open(fname, "r") as fp:
                 html = fp.read()
-                sys.stderr.write("+ read %d bytes from %s\n" % (fp.tell(),
-                                                                fname))
+                print("+ read %d bytes from %s" % (fp.tell(),
+                                                   fname),
+                      file=sys.stderr)
                 return html
 
-        sys.stderr.write("GET " + url)
+        print("GET " + url, filed=sys.stderr, file=sys.stderr)
         html = requests.get(url).text.encode('utf-8')
         if not os.path.exists(self.dest):
             os.mkdir(self.dest)
         with open(fname, "w") as fp:
             fp.write(html)
-            sys.stderr.write("+ wrote %d bytes to %s\n" % (fp.tell(), fname))
+            print("+ wrote %d bytes to %s" % (fp.tell(), fname),
+                  file=sys.stderr)
             return html
 
     def get_hrefs(self):
@@ -60,8 +62,8 @@ class CrawlBasho:
             en = "%s/%s" % (self.basho, elm.attrib['href'])
             jp = en.replace('/en/', '/')
             hrefs = {"href": {"en": en, "jp": jp}}
-            sys.stderr.write("  en: " + en + "\n")
-            sys.stderr.write("  jp: " + jp + "\n")
+            print("  en: " + en, file=sys.stderr)
+            print("  jp: " + jp, file=sys.stderr)
             self.data.append(hrefs)
 
     def get_description(self, doc, lang):
@@ -80,14 +82,14 @@ class CrawlBasho:
             fmt = "%s day %s %s (%s) %s"
         desc = fmt % (day, east, west, tech, text)
         desc = desc.strip()
-        sys.stderr.write("  desc: " + desc + "\n")
+        print("  desc: " + desc, file=sys.stderr)
         return desc
 
     def get_movie_href(self, doc):
         onclick = doc.cssselect("p.movie a")[0].attrib['onclick']
         movie = str(onclick.split("'")[1])
         href = "%s/%s" % (self.base, movie)
-        sys.stderr.write("  movie: " + href + "\n")
+        print("  movie: " + href, file=sys.stderr)
         return href
 
     def get_details(self, data, lang):
@@ -107,14 +109,13 @@ def main(args):
     with open("config.json") as fp:
         config = json.loads(fp.read())
         basho = CrawlBasho(args.selector, config[args.selector])
-        print(vars(basho))
         basho.crawl()
         print(json.dumps(basho.data,
                          ensure_ascii=False,
                          encoding='utf-8',
                          sort_keys=True,
                          indent=4,
-                         separators=(',', ': ')))
+                         separators=(',', ': ')).encode('utf8'))
 
 if __name__ == "__main__":
     argp = argparse.ArgumentParser()
