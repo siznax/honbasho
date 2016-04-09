@@ -105,20 +105,19 @@ def main(config):
 if __name__ == "__main__":
     argp = argparse.ArgumentParser()
     argp.add_argument('data_file',
-                      help='JSON output from crawl.py (CrawlBasho)')
+                      help='JSON crawl data')
     argp.add_argument('selector',
-                      help='config.json selector')
+                      help='basho.json selector')
     args = argp.parse_args()
 
-    config_file = "config.json"
+    basho_file = "basho.json"
+    if os.path.exists(basho_file):
+        with open(basho_file) as fp:
+            bjson = json.loads(fp.read())
+            basho = bjson[args.selector]
+            basho["data_file"] = args.data_file
+            basho["code"] = bjson["code"]
+            main(basho)
 
-    if os.path.exists(config_file):
-        with open(config_file) as fp:
-            cfg_json = json.loads(fp.read())
-            config = cfg_json[args.selector]
-            config["data_file"] = args.data_file
-            config["code"] = cfg_json["code"]
-            main(config)
-
-    print "ERROR config file not found: " + config_file
+    print "ERROR: file not found: " + basho_file
     sys.exit(os.EX_NOINPUT)

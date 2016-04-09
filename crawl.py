@@ -13,12 +13,12 @@ import sys
 from settings import Default
 
 
-class CrawlBasho:
+class Honbasho:
     """Crawl Grand Sumo hightlights"""
 
-    def __init__(self, dest, config, user_agent):
+    def __init__(self, dest, basho, user_agent):
         self.dest = dest
-        self.url = urlparse.urlparse(config["source"])
+        self.url = urlparse.urlparse(basho["source"])
         self.base = "%s://%s" % (self.url.scheme, self.url.netloc)
         self.list = self.base + self.url.path
         self.basho = self.base + self.url.path.replace('/list', '')
@@ -105,13 +105,13 @@ class CrawlBasho:
 
 
 def main(args):
-    with open("config.json") as fp:
-        config = json.loads(fp.read())
-    basho = CrawlBasho(args.selector,
-                       config[args.selector],
-                       Default.USER_AGENT)
-    basho.crawl()
-    print(json.dumps(basho.data,
+    with open("basho.json") as fp:
+        basho = json.loads(fp.read())
+    hb = Honbasho(args.selector,
+                  basho[args.selector],
+                  Default.USER_AGENT)
+    hb.crawl()
+    print(json.dumps(hb.data,
                      ensure_ascii=False,
                      encoding='utf-8',
                      sort_keys=True,
@@ -121,5 +121,5 @@ def main(args):
 
 if __name__ == "__main__":
     argp = argparse.ArgumentParser()
-    argp.add_argument('selector', help='config.json selector')
+    argp.add_argument('selector', help='basho.json selector')
     main(argp.parse_args())
