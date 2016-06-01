@@ -23,6 +23,7 @@ class Honbasho:
         self.list = self.base + self.url.path
         self.basho = self.base + self.url.path.replace('/list', '')
         self.data = []
+        self.user_agent = user_agent
 
     def crawl(self):
         """get URLs and details for each highlight"""
@@ -43,7 +44,7 @@ class Honbasho:
                       file=sys.stderr)
                 return html
 
-        print("GET " + url, filed=sys.stderr, file=sys.stderr)
+        print("GET " + url, file=sys.stderr)
         headers = {'User-Agent': self.user_agent}
         html = requests.get(url, headers=headers).text.encode('utf-8')
         if not os.path.exists(self.dest):
