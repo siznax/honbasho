@@ -1,4 +1,11 @@
 {
+    "201607": {
+	"source": "http://www.sumo.or.jp/EnHonbashoTopicsKoTorikumi15/wrap",
+	"date": "12 Aug 2016",
+	"title": "Nagoya 2016 (July) Grand Sumo Highlights",
+	"archive": "honbasho-201607-nagoya",
+        "description": "<b>Nagoya 2016</b>\n\nNagoya, Aichi Prefectural Gymnasium\n\nJuly 10, 2016 - July 24, 2016\n\n"
+    },
     "201605": {
 	"source": "http://www.sumo.or.jp/en/honbasho/topics/ko_torikumi15/list",
 	"date": "31 May 2016",
@@ -77,5 +84,6 @@
 	"title": "Natsu 2014 (May) sumo highlights",
 	"archive": "honbasho-2014-natsu"
 	},
-    "code": "https://github.com/siznax/honbasho"
+    "code": "https://github.com/siznax/honbasho",
+    "description": "Part of <a href=\"https://siznax.github.io/honbasho/\">Honbasho</a>: Grand Sumo Highlights Archive"
 }
