@@ -17,12 +17,11 @@ class Honbasho:
     """Crawl Grand Sumo hightlights"""
 
     def __init__(self, dest, basho, user_agent):
-        self.dest = dest
-        self.url = urlparse.urlparse(basho["source"])
-        self.base = "%s://%s" % (self.url.scheme, self.url.netloc)
-        self.list = self.base + self.url.path
-        self.basho = self.base + self.url.path.replace('/list', '')
+        url = urlparse.urlparse(basho["source"])
+        self.base = "%s://%s" % (url.scheme, url.netloc)
         self.data = []
+        self.dest = dest
+        self.source = basho["source"]
         self.user_agent = user_agent
 
     def crawl(self):
@@ -57,11 +56,12 @@ class Honbasho:
 
     def get_hrefs(self):
         """get detail URLs for all highlights listed"""
-        html = self.get_html("list.html", self.list)
+        html = self.get_html("list.html", self.source)
         doc = lxml.html.fromstring(html)
         for elm in doc.cssselect("a.arr"):
-            en = "%s/%s" % (self.basho, elm.attrib['href'])
-            jp = en.replace('/en/', '/')
+            en = urlparse.urljoin(self.base, elm.attrib['href'])
+            jp = en.replace('/EnHonbashoTopicsKoTorikumi15/',
+                            '/ResultDataKoTorikumi15/')
             hrefs = {"href": {"en": en, "jp": jp}}
             print("  en: " + en, file=sys.stderr)
             print("  jp: " + jp, file=sys.stderr)
@@ -89,7 +89,7 @@ class Honbasho:
     def get_movie_href(self, doc):
         onclick = doc.cssselect("p.movie a")[0].attrib['onclick']
         movie = str(onclick.split("'")[1])
-        href = "%s/%s" % (self.base, movie)
+        href = urlparse.urljoin(self.base, movie)
         print("  movie: " + href, file=sys.stderr)
         return href
 
