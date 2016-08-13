@@ -1,48 +1,80 @@
 honbasho
 ========
 
-Archive [Grand Sumo](http://www.sumo.or.jp/en/) tournament
-highlights, as they are _removed_ :sob: before each new tournament. 
+Archive [Grand Sumo](http://www.sumo.or.jp/) tournament highlights,
+as they are _removed_ :sob: before each new tournament. 
 
-Usage
------
 
-Update ``basho.json``:
+Update the config
+-----------------
+
+Update ``basho.json`` with latest source and metadata, e.g.
 
 ```
-"201405": {
-    "source": "http://www.sumo.or.jp/en/honbasho/topics/ko_torikumi15/list",
-    "date": "28 June 2014",
-    "title": "Natsu 2014 (May) sumo highlights",
-    "archive": "honbasho-2014-natsu"
-},
+"201607": {
+    "source": "http://www.sumo.or.jp/EnHonbashoTopicsKoTorikumi15/wrap",
+    "date": "12 Aug 2016",
+    "title": "Nagoya 2016 (July) Grand Sumo Highlights",
+    "archive": "honbasho-201607-nagoya",
+    "description": "<b>Nagoya 2016</b>\n\nNagoya, Aichi Prefectural Gymnasium\n\nJuly 10, 2016 - July 24, 2016\n\n"
 ```
 
-Crawl and Download:
+
+Crawl and download
+------------------
+
+Get highlights metadata:
 
 ```shell
-# get highlights metadata
-$ crawl.py {selector} > data.json
-
-# download movies and text
-$ download.py {dest} data.json
-
-# make HTML index
-$ index.py data.json {selector} > highlights.html
+$ mkdir {dest}
+$ crawl.py {selector} > {dest}/data.json
 ```
 
-Upload to Internet Archive (may use [siznax/iatools](https://github.com/siznax/iatools))
+Download movies and text:
 
 ```shell
-$ iatools/s3upload.py {item} data.json -m "mediatype:movies" "collection:opensource_media"
-$ iatools/s3upload.py {item} highlights.html
-$ iatools/s3upload.py {item} *.mp4
+$ download.py {dest} {dest}/data.json
 ```
 
-Update archived highlights on `gh-pages` branch.
+Make highlights HTML index:
 
-See https://siznax.github.io/honbasho
+```shell
+$ index.py {dest}/data.json {selector} > {dest}/highlights.html
+```
 
-Enjoy!
+
+Upload to the Internet Archive
+------------------------------
+
+* Add a description for the archive page in ``basho.json``
+* Move crawl HTML out of {dest}/
+* Make sure {selector} and {dest} have same name (e.g. 201607)
+
+Review metadata changes to be made:
+
+```shell
+$ upload.py {selector}
+```
+
+Upload files and modify metadata:
+
+```shell
+$ upload.py {selector} -u  # upload files
+$ upload.py {selector} -m  # modify metadata
+```
+
+
+Update project pages
+--------------------
+
+* Checkout `gh-pages` branch and update ``index.html``
+* See https://siznax.github.io/honbasho
+
+
+Thanks to the [Internet Archive](https://archive.org/) for hosting,
+and @jjjake for the excellent
+[internetarchive](https://github.com/jjjake/internetarchive)
+python library.
+
 
 @siznax
