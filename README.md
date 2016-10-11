@@ -11,12 +11,13 @@ Update the config
 Update ``basho.json`` with latest source and metadata, e.g.
 
 ```
-"201607": {
-    "source": "http://www.sumo.or.jp/EnHonbashoTopicsKoTorikumi15/wrap",
-    "date": "12 Aug 2016",
-    "title": "Nagoya 2016 (July) Grand Sumo Highlights",
-    "archive": "honbasho-201607-nagoya",
-    "description": "<b>Nagoya 2016</b>\n\nNagoya, Aichi Prefectural Gymnasium\n\nJuly 10, 2016 - July 24, 2016\n\n"
+"201609": {
+    "en": "http://www.sumo.or.jp/EnHonbashoTopicsKoTorikumi15/wrap",
+    "ja": "http://www.sumo.or.jp/ResultDataKoTorikumi15/wrap",
+    "date": "7 Oct 2016",
+    "title": "Aki 2016 (September) Grand Sumo Highlights",
+    "archive": "honbasho-201609-aki",
+    "description": "<b>Aki 2016</b>\n\nTokyo, Ryogoku Kokugikan\n\nSeptember 11, 2016 - September 25, 2016\n\n"
 ```
 
 
