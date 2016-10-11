@@ -11,35 +11,32 @@ import urlparse
 import sys
 
 from settings import Default
-
+from pprint import pprint
 
 class Honbasho:
     """Crawl Grand Sumo hightlights"""
 
-    def __init__(self, dest, basho, user_agent):
-        url = urlparse.urlparse(basho["source"])
-        self.base = "%s://%s" % (url.scheme, url.netloc)
-        self.data = []
+    data = []
+
+    def __init__(self, dest, base, user_agent):
+        self.base = base
         self.dest = dest
-        self.source = basho["source"]
         self.user_agent = user_agent
 
-    def crawl(self):
+    def crawl(self, source, lang):
         """get URLs and details for each highlight"""
-        self.get_hrefs()
+        self.get_hrefs(source, lang)
         for index, item in enumerate(self.data):
             self.index = index
-            self.get_details(item, "en")
-            self.get_details(item, "jp")
+            self.get_details(item, lang)
 
     def get_html(self, fname, url):
         """GET HTML or read from file"""
         fname = os.path.join(self.dest, fname)
         if os.path.exists(fname):
-            with open(fname, "r") as fp:
+            with open(fname, 'r') as fp:
                 html = fp.read()
-                print("+ read %d bytes from %s" % (fp.tell(),
-                                                   fname),
+                print("+ read %d bytes from %s" % (fp.tell(), fname),
                       file=sys.stderr)
                 return html
 
@@ -48,24 +45,21 @@ class Honbasho:
         html = requests.get(url, headers=headers).text.encode('utf-8')
         if not os.path.exists(self.dest):
             os.mkdir(self.dest)
-        with open(fname, "w") as fp:
+        with open(fname, 'w') as fp:
             fp.write(html)
             print("+ wrote %d bytes to %s" % (fp.tell(), fname),
                   file=sys.stderr)
             return html
 
-    def get_hrefs(self):
+    def get_hrefs(self, source, lang):
         """get detail URLs for all highlights listed"""
-        html = self.get_html("list.html", self.source)
+        html = self.get_html('%s-list.html' % lang, source)
         doc = lxml.html.fromstring(html)
-        for elm in doc.cssselect("a.arr"):
-            en = urlparse.urljoin(self.base, elm.attrib['href'])
-            jp = en.replace('/EnHonbashoTopicsKoTorikumi15/',
-                            '/ResultDataKoTorikumi15/')
-            hrefs = {"href": {"en": en, "jp": jp}}
-            print("  en: " + en, file=sys.stderr)
-            print("  jp: " + jp, file=sys.stderr)
-            self.data.append(hrefs)
+        for i, elm in enumerate(doc.cssselect('a.arr')):
+            href = urlparse.urljoin(self.base, elm.attrib['href'])
+            if (len(self.data) - 1) < i:
+                self.data.append({})
+            self.data[i]['%s_href' % lang] = href
 
     def get_description(self, doc, lang):
         day = doc.cssselect("td.day")[0].text
@@ -73,9 +67,9 @@ class Honbasho:
         east = doc.cssselect("td.brLb a")[0].text
         west = doc.cssselect("td.brRb a")[0].text
         if east == win:
-            east += "*"
+            east += '*'
         if west == win:
-            west += "*"
+            west += '*'
         tech = doc.cssselect("td.decide")[0].text
         text = doc.cssselect("p.txt")[0].text
         fmt = "%s %s %s (%s) %s"
@@ -97,21 +91,22 @@ class Honbasho:
         """get description and movie URL for one highlight"""
         fname = "%s-%s-%s.html" % (self.dest, lang,
                                    "{0:02d}".format(self.index))
-        page = self.get_html(fname, data['href'][lang])
+        page = self.get_html(fname, data['%s_href' % lang])
         doc = lxml.html.fromstring(page)
-        if 'txt' not in data:
-            data['txt'] = {}
-        data['txt'][lang] = self.get_description(doc, lang)
-        data['movie'] = self.get_movie_href(doc)
+        data['%s_txt' % lang] = self.get_description(doc, lang)
+        data['%s_movie' % lang] = self.get_movie_href(doc)
 
 
 def main(args):
     with open("basho.json") as fp:
         basho = json.loads(fp.read())
-    hb = Honbasho(args.selector,
-                  basho[args.selector],
-                  Default.USER_AGENT)
-    hb.crawl()
+        basho = basho[args.selector]
+
+    hb = Honbasho(args.selector, 'http://www.sumo.or.jp/', Default.USER_AGENT)
+
+    hb.crawl(basho['en'], 'en')
+    hb.crawl(basho['ja'], 'ja')
+
     print(json.dumps(hb.data,
                      ensure_ascii=False,
                      encoding='utf-8',
