@@ -34,8 +34,8 @@ def get_metadata(_id, _dir):
 def get_title(data, name):
     """returns movie title metadata from crawl datafile given filename"""
     for i, item in enumerate(data):
-        if name in data[i]["movie"]:
-            return item["txt"]["en"]
+        if name in data[i]["en_movie"]:
+            return item["en_txt"]
 
 
 def pretty(data):
@@ -48,7 +48,7 @@ def pretty(data):
 
 def update_metadata(_id, meta, for_real=False):
     print "modify_metadata(%s)" % _id
-    for item in meta:
+    for item in sorted(meta):
         _md = {'title': meta[item]["title"]}
         tgt = meta[item]["target"]
         if for_real:
