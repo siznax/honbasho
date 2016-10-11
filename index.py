@@ -38,7 +38,7 @@ HTML_TEMPLATE = Template("""<!doctype html>
 <title>${title}</title>
 <style>${css}</style>
 </head>
-<h1>${title}</h1>
+<h1>${heading}</h1>
 """)
 
 MOVIE_DIV = Template("""<div id="${num}" class="movie">
@@ -48,14 +48,15 @@ ${video}
 """)
 
 TAIL = Template("""<p>
-Source: <a href="${source}">${source}</a><br>
+Source (en): <a href="${source_en}">${source_en}</a><br>
+Source (ja): <a href="${source_ja}">${source_ja}</a><br>
 Archive: <a href="${details}/${archive}">${details}/${archive}</a><br>
 Code: <a href="${code}">${code}</a><br>
 Date: ${date}<br>
 </p>""")
 
 TEXT_TEMPLATE = Template("""<p><b>Highlight ${num}</b></p>
-<p class="jp">${jp}</p>
+<p class="ja">${ja}</p>
 <p class="en">${en}</p>""")
 
 VIDEO_TEMPLATE = Template("""<video
@@ -67,7 +68,7 @@ Your browser does not support the video tag.
 
 
 def print_divs(item, archive):
-    mp4 = item['movie'].split('/')[-1]
+    mp4 = item['en_movie'].split('/')[-1]
     ogg = mp4.replace('.mp4', '.ogg')
     poster = mp4.replace('.mp4', '.gif')
     mp4_url = "%s/%s/%s" % (DOWNLOAD, archive, mp4)
@@ -77,8 +78,8 @@ def print_divs(item, archive):
     video = VIDEO_TEMPLATE.substitute(poster=poster_url,
                                       mp4=mp4_url, ogg=ogg_url)
     text = TEXT_TEMPLATE.substitute(num=num,
-                                    jp=item['txt']['jp'],
-                                    en=item['txt']['en'])
+                                    en=item['en_txt'],
+                                    ja=item['ja_txt'])
     print MOVIE_DIV.substitute(num=num, video=video, text=text).encode('utf-8')
 
 
@@ -86,15 +87,17 @@ def main(config):
     if not os.path.exists(config["data_file"]):
         print "ERROR data_file not found: " + config["data_file"]
         sys.exit(os.EX_NOINPUT)
-    title = config["title"].encode("utf-8").replace("Grand", "<br>Grand")
-    print HTML_TEMPLATE.substitute(title=title, css=CSS)
+    title = config["title"].encode('utf-8')
+    heading = title.replace("Grand", "<br>Grand")
+    print HTML_TEMPLATE.substitute(title=title, heading=heading, css=CSS)
 
     with open(config["data_file"]) as fp:
         data = json.loads(fp.read())
         for item in data:
             print_divs(item, config["archive"])
 
-    print TAIL.substitute(source=config["source"],
+    print TAIL.substitute(source_en=config["en"],
+                          source_ja=config["ja"],
                           date=config["date"],
                           details=DETAILS,
                           archive=config["archive"],
