@@ -11,12 +11,15 @@ import sys
 from settings import Default
 
 
-def write_movie_file(fname, data):
+def download(item, dest):
+    url = item['en_movie']
+    fname = url.split('/')[-1]
+    fname = os.path.join(dest, fname)
     if not os.path.exists(fname):
         with open(fname, 'wb') as fp:
-            print("GET " + data['movie'], file=sys.stderr)
+            print("GET " + url, file=sys.stderr)
             curl = pycurl.Curl()
-            curl.setopt(pycurl.URL, str(data['movie']))
+            curl.setopt(pycurl.URL, str(url))
             curl.setopt(pycurl.WRITEDATA, fp)
             curl.setopt(pycurl.USERAGENT, Default.USER_AGENT)
             curl.perform()
@@ -26,12 +29,6 @@ def write_movie_file(fname, data):
     else:
         print("  " + fname, file=sys.stderr)
     sys.stdout.flush()
-
-
-def download(item, dest):
-    url = item['movie']
-    movie_file = url.split('/')[-1]
-    write_movie_file(os.path.join(dest, movie_file), item)
 
 
 def main(args):
