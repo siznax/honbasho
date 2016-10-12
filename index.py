@@ -60,7 +60,7 @@ TEXT_TEMPLATE = Template("""<p><b>Highlight ${num}</b></p>
 <p class="en">${en}</p>""")
 
 VIDEO_TEMPLATE = Template("""<video
- controls preload="none" poster="${poster}">
+ controls poster="${poster}">
  <source src="${mp4}" type="video/mp4">
  <source src="${ogg}" type="video/ogg">
 Your browser does not support the video tag.
@@ -69,11 +69,11 @@ Your browser does not support the video tag.
 
 def print_divs(item, archive):
     mp4 = item['en_movie'].split('/')[-1]
-    ogg = mp4.replace('.mp4', '.ogg')
-    poster = mp4.replace('.mp4', '.gif')
+    ogg = mp4.replace('.mp4', '.ogv')
+    poster = mp4.replace('.mp4', '_000001.jpg')
     mp4_url = "%s/%s/%s" % (DOWNLOAD, archive, mp4)
     ogg_url = "%s/%s/%s" % (DOWNLOAD, archive, ogg)
-    poster_url = "%s/%s/%s" % (DOWNLOAD, archive, poster)
+    poster_url = "%s/%s/%s.thumbs/%s" % (DOWNLOAD, archive, archive, poster)
     num = int(os.path.splitext(mp4)[0].split('_')[-1])
     video = VIDEO_TEMPLATE.substitute(poster=poster_url,
                                       mp4=mp4_url, ogg=ogg_url)
