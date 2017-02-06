@@ -72,10 +72,12 @@ class Honbasho:
             west += '*'
         tech = doc.cssselect("td.decide")[0].text
         text = doc.cssselect("p.txt")[0].text
-        fmt = "%s %s %s (%s) %s"
+        fmt = "%s %s %s (%s)"
         if lang == "en":
-            fmt = "%s day %s %s (%s) %s"
-        desc = fmt % (day, east, west, tech, text)
+            fmt = "%s day %s %s (%s)"
+        desc = fmt % (day, east, west, tech)
+        if text:
+            desc += " " + text
         desc = desc.strip()
         print("  desc: " + desc, file=sys.stderr)
         return desc
