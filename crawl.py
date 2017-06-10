@@ -64,18 +64,14 @@ class Honbasho:
     def get_description(self, doc, lang):
         day = doc.cssselect("td.day")[0].text
         win = doc.cssselect("td.win a")[0].text
-        east = doc.cssselect("td.brLb a")[0].text
-        west = doc.cssselect("td.brRb a")[0].text
-        if east == win:
-            east += '*'
-        if west == win:
-            west += '*'
+        winner = doc.cssselect("td.win a")[0].text + '*'
+        player = doc.cssselect("td.player a")[0].text
         tech = doc.cssselect("td.decide")[0].text
         text = doc.cssselect("p.txt")[0].text
         fmt = "%s %s %s (%s)"
         if lang == "en":
-            fmt = "%s day %s %s (%s)"
-        desc = fmt % (day, east, west, tech)
+            fmt = "%s %s %s (%s)"
+        desc = fmt % (day, winner, player, tech)
         if text:
             desc += " " + text
         desc = desc.strip()
