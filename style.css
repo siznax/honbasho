@@ -24,6 +24,10 @@ h1, h2, h3 {
     text-align:center;
 }
 
+h2 {
+    font-weight:100;
+}
+
 iframe {
     display:block;
     margin:auto;
