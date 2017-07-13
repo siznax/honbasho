@@ -29,6 +29,7 @@ h2 {
 }
 
 iframe {
+    border:0;
     display:block;
     margin:auto;
 }
