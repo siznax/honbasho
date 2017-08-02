@@ -66,7 +66,7 @@ def main(args):
     _id = basho[args.basho]["archive"]
     _dir = os.path.join(args.basho, '')  # ensure trailing slash
     desc = basho[args.basho]["description"] + basho["description"]
-    item = {'collection': 'opensource_media',
+    item = {'collection': 'honbasho',
             'mediatype': 'movies',
             'description': desc}
 
