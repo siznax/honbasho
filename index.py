@@ -67,19 +67,22 @@ Your browser does not support the video tag.
 </video>""")
 
 
-def print_divs(item, archive):
+def print_divs(item, num, archive):
     mp4 = item['en_movie'].split('/')[-1]
     ogg = mp4.replace('.mp4', '.ogv')
     poster = mp4.replace('.mp4', '_000001.jpg')
+
     mp4_url = "%s/%s/%s" % (DOWNLOAD, archive, mp4)
     ogg_url = "%s/%s/%s" % (DOWNLOAD, archive, ogg)
     poster_url = "%s/%s/%s.thumbs/%s" % (DOWNLOAD, archive, archive, poster)
-    num = int(os.path.splitext(mp4)[0].split('_')[-1])
+
     video = VIDEO_TEMPLATE.substitute(poster=poster_url,
                                       mp4=mp4_url, ogg=ogg_url)
+
     text = TEXT_TEMPLATE.substitute(num=num,
                                     en=item['en_txt'],
                                     ja=item['ja_txt'])
+
     print MOVIE_DIV.substitute(num=num, video=video, text=text).encode('utf-8')
 
 
@@ -93,8 +96,8 @@ def main(config):
 
     with open(config["data_file"]) as fp:
         data = json.loads(fp.read())
-        for item in data:
-            print_divs(item, config["archive"])
+        for count, item in enumerate(data):
+            print_divs(item, count + 1, config["archive"])
 
     print TAIL.substitute(source_en=config["en"],
                           source_ja=config["ja"],
