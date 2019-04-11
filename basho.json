@@ -1,4 +1,13 @@
 {
+    "201903": {
+        "en": "http://www.sumo.or.jp/EnHonbashoTopicsKoTorikumi15/wrap",
+	"ja": "http://www.sumo.or.jp/ResultDataKoTorikumi15/wrap",
+	"date": "9 Apr 2019",
+	"title": "Haru 2019 (March) Grand Sumo Highlights",
+	"archive": "honbasho-201903-haru",
+        "description": "<b>Haru 2019</b>\n\nOsaka, Osaka Prefectural Gymnasium\n\nMarch 10, 2019 - March 24, 2019\n\n"
+    },
+    "201901": {"MISSED": true},
     "201811": {
         "en": "http://www.sumo.or.jp/EnHonbashoTopicsKoTorikumi15/wrap",
 	"ja": "http://www.sumo.or.jp/ResultDataKoTorikumi15/wrap",
